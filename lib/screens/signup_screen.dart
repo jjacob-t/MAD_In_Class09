@@ -36,6 +36,7 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   bool _isPasswordVisible = false;
+  DateTime? _birthDate;
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +92,33 @@ class _SignupPageState extends State<SignupPage> {
                   return null;
                 },
               ),
+              const SizedBox(height: 16),
+
+              GestureDetector(
+                onTap: () async {
+                  final picked = await showDatePicker(
+                    context: context, 
+                    firstDate: DateTime(1900), 
+                    lastDate: DateTime.now(),
+                    );
+                  if (picked != null) setState(() => _birthDate = picked);
+                },
+                child: InputDecorator(
+                  decoration: const InputDecoration(
+                    labelText: 'Birth Date',
+                    prefixIcon: Icon(Icons.cake),
+                    border: OutlineInputBorder(),
+                  ),
+                  child: Text(
+                    _birthDate == null ? 'Select your birth date' : '${_birthDate!.year}-${_birthDate!.month}-${_birthDate!.day}',
+                    style: TextStyle(
+                      color: _birthDate == null ? Colors.grey : Colors.black,
+                  )
+                ),
+                ),
+                
+              ),
+
               const SizedBox(height: 16),
               
               // 🔒 Password Field
