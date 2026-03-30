@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'signup_screen.dart';
 
@@ -11,7 +12,7 @@ class WelcomeScreen extends StatefulWidget{
 
   class _WelcomeScreenState extends State<WelcomeScreen> {
 
-  
+    final AnimatedTextController myAnimatedTextController = AnimatedTextController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +25,27 @@ class WelcomeScreen extends StatefulWidget{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Welcome!', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            SizedBox(
+              height: 44,
+              child: AnimatedTextKit(
+                animatedTexts: [
+                  ScaleAnimatedText(
+                    'Welcome!', 
+                    textStyle: TextStyle(fontSize: 28, fontWeight: FontWeight.bold
+                    ),
+                  // speed: const Duration(milliseconds: 500),
+                  )
+                ],
+                repeatForever: true,
+                pause: const Duration(milliseconds: 100),
+                displayFullTextOnTap: true,
+                stopPauseOnTap: true,
+                controller: myAnimatedTextController
+              ),
+            ),
 
+            SizedBox(height:16),
+            
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
